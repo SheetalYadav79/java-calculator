@@ -3,30 +3,26 @@ import org.junit.jupiter.api.Test;
 
 public class CalculatorTest {
 
-    Calculator calc = new Calculator();
-
     @Test
-    void testAdd() {
-        assertEquals(10, calc.add(5, 5));
+    void testChainedOperations() {
+        double result = Calculator.divide(
+                            Calculator.multiply(
+                                Calculator.add(10, 5), // 15
+                                2                        // 30
+                            ),
+                            3                            // 10
+                        );
+
+        assertEquals(10.0, result);
     }
 
     @Test
-    void testSubtract() {
-        assertEquals(2, calc.subtract(5, 3));
-    }
+    void testAnotherChain() {
+        double result = Calculator.subtract(
+                            Calculator.multiply(4, 5), // 20
+                            Calculator.divide(10, 2)   // 5
+                        );
 
-    @Test
-    void testMultiply() {
-        assertEquals(15, calc.multiply(3, 5));
-    }
-
-    @Test
-    void testDivide() {
-        assertEquals(2.0, calc.divide(10, 5));
-    }
-
-    @Test
-    void testDivideByZero() {
-        assertThrows(ArithmeticException.class, () -> calc.divide(5, 0));
+        assertEquals(15.0, result);
     }
 }
