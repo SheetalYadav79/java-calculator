@@ -22,15 +22,17 @@ jobs:
 
     - name: Download JUnit
       run: |
-        curl -L -o junit-platform-console-standalone.jar \
+        curl -L -o junit.jar \
         https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.10.0/junit-platform-console-standalone-1.10.0.jar
 
-    - name: Compile Java Code
+    - name: Compile Main Code
       run: |
-        javac -cp junit-platform-console-standalone.jar src/*.java
+        javac -d out src/Calculator.java
+
+    - name: Compile Test Code
+      run: |
+        javac -cp "junit.jar:out" -d out src/CalculatorTest.java
 
     - name: Run Tests
       run: |
-        java -jar junit-platform-console-standalone.jar \
-        --class-path src \
-        --scan-class-path
+        java -jar junit.jar --class-path out --scan-class-path
