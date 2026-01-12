@@ -27,6 +27,7 @@ jobs:
 
     - name: Compile Main Code
       run: |
+        mkdir -p out
         javac -d out src/Calculator.java
 
     - name: Compile Test Code
